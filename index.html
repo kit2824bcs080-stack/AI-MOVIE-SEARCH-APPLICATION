@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="CineScope is a movie search and discovery dashboard built with TMDB API and browser localStorage."
+    />
+    <title>CineScope | Movie Search Application</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <nav class="nav container" aria-label="Main navigation">
+          <div class="brand" aria-label="CineScope home">
+            <span class="brand-mark">C</span>
+            <span>CineScope</span>
+          </div>
+
+          <div class="nav-links" role="navigation" aria-label="Website sections">
+            <button class="nav-link active" data-section="discover" type="button">Discover</button>
+            <button class="nav-link" data-section="popular" type="button">Popular</button>
+            <button class="nav-link" data-section="top-rated" type="button">Top Rated</button>
+            <button class="nav-link" data-section="favorites" type="button">
+              My Favorites
+              <span id="favoritesCount" class="favorites-count">0</span>
+            </button>
+          </div>
+
+          <button id="apiConfigToggle" class="btn btn-small btn-outline" type="button">
+            API Key
+          </button>
+        </nav>
+
+        <div id="apiKeyPanel" class="api-panel hidden" aria-live="polite">
+          <div class="api-panel-inner">
+            <label class="api-label" for="apiKeyInput">TMDB API Key</label>
+            <div class="api-controls">
+              <input
+                id="apiKeyInput"
+                type="password"
+                placeholder="Paste your TMDB API key here"
+                autocomplete="off"
+              />
+              <button id="saveApiKeyBtn" class="btn btn-small" type="button">Save</button>
+              <button id="clearApiKeyBtn" class="btn btn-small btn-ghost" type="button">
+                Clear
+              </button>
+            </div>
+            <p class="security-note">
+              Stored in your browser localStorage only for this demo. It is not secure for production
+              or public deployment.
+            </p>
+          </div>
+        </div>
+      </header>
+
+      <main class="container main-content">
+        <section class="search-panel" aria-label="Movie search section">
+          <div class="search-box">
+            <span class="search-icon" aria-hidden="true">🔍</span>
+            <input
+              id="searchInput"
+              type="search"
+              placeholder="Search for your next movie..."
+              aria-label="Search movies"
+            />
+            <button id="searchButton" class="btn" type="button">Search</button>
+            <button id="clearSearchButton" class="link-button" type="button">Clear</button>
+          </div>
+
+          <div class="status-row">
+            <span id="statusBadge" class="status-badge demo">Demo Mode</span>
+            <span id="resultInfo">Trending movies for today</span>
+          </div>
+        </section>
+
+        <section class="hero-section">
+          <div class="hero-backdrop" id="heroBackdrop"></div>
+          <div class="hero-overlay"></div>
+
+          <div class="hero-content">
+            <div class="hero-badge">Now Featured</div>
+            <h1 id="heroTitle">Loading movie...</h1>
+            <p id="heroOverview" class="hero-overview">
+              Movie details will appear here once the movie list loads.
+            </p>
+
+            <div class="hero-meta">
+              <span id="heroRating">⭐ 0.0</span>
+              <span id="heroRelease">2024</span>
+            </div>
+
+            <div class="hero-actions">
+              <button id="heroDetailsBtn" class="btn" type="button">View Details</button>
+              <button id="heroFavoriteBtn" class="btn btn-secondary" type="button">Save Favorite</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="movie-section" aria-labelledby="sectionTitle">
+          <div class="section-header">
+            <h2 id="sectionTitle">Discover</h2>
+            <span id="moviesCount" class="movies-count">0 results</span>
+          </div>
+
+          <div id="loadingIndicator" class="loading hidden" aria-live="polite">
+            <div class="spinner" aria-hidden="true"></div>
+            <span>Loading movies...</span>
+          </div>
+
+          <div id="emptyState" class="empty-state hidden" aria-live="polite">
+            No movies found.
+          </div>
+
+          <div id="movieGrid" class="movie-grid" aria-live="polite"></div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <div class="container footer-inner">
+          <p>© 2026 CineScope • Movie Search Application Demo</p>
+          <p>Built for academic mini-project demonstration.</p>
+        </div>
+      </footer>
+    </div>
+
+    <div id="movieModal" class="modal hidden" aria-hidden="true">
+      <div class="modal-backdrop" data-close="true"></div>
+      <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="movieModalTitle">
+        <button id="closeModalBtn" class="modal-close" type="button" aria-label="Close movie details">
+          ×
+        </button>
+        <div id="modalContent" class="modal-content"></div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
